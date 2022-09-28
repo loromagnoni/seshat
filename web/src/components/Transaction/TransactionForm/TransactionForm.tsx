@@ -1,16 +1,17 @@
+import type { EditTransactionById, UpdateTransactionInput } from 'types/graphql'
+
+import { RWGqlError, SelectField } from '@redwoodjs/forms'
 import {
+  DatetimeLocalField,
+  FieldError,
   Form,
   FormError,
-  FieldError,
   Label,
-  DatetimeLocalField,
-  TextField,
-  NumberField,
   Submit,
+  TextField,
 } from '@redwoodjs/forms'
 
-import type { EditTransactionById, UpdateTransactionInput } from 'types/graphql'
-import type { RWGqlError } from '@redwoodjs/forms'
+import TransactionCategoriesDropdownCell from 'src/components/TransactionCategory/TransactionCategoriesDropdownCell'
 
 const formatDatetime = (value) => {
   if (value) {
@@ -43,15 +44,15 @@ const TransactionForm = (props: TransactionFormProps) => {
         />
 
         <Label
-          name="deletedAt"
+          name="transactionDate"
           className="rw-label"
           errorClassName="rw-label rw-label-error"
         >
-          Deleted at
+          Transaction date
         </Label>
 
         <DatetimeLocalField
-          name="deletedAt"
+          name="transactionDate"
           defaultValue={formatDatetime(props.transaction?.deletedAt)}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
@@ -118,16 +119,17 @@ const TransactionForm = (props: TransactionFormProps) => {
           className="rw-label"
           errorClassName="rw-label rw-label-error"
         >
-          Transaction category id
+          Category
         </Label>
-
-        <NumberField
+        <SelectField
           name="transactionCategoryId"
           defaultValue={props.transaction?.transactionCategoryId}
           className="rw-input"
           errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
+          validation={{ required: true, valueAsNumber: true }}
+        >
+          <TransactionCategoriesDropdownCell />
+        </SelectField>
 
         <FieldError name="transactionCategoryId" className="rw-field-error" />
 
