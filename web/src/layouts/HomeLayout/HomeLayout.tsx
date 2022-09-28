@@ -22,7 +22,13 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { IconType } from 'react-icons'
-import { FiChevronDown, FiHome, FiMenu, FiTrendingUp } from 'react-icons/fi'
+import {
+  FiChevronDown,
+  FiFolder,
+  FiHome,
+  FiMenu,
+  FiTrendingUp,
+} from 'react-icons/fi'
 
 import { Link, routes } from '@redwoodjs/router'
 
@@ -75,6 +81,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const LinkItems: Array<LinkItemProps> = [
     { name: 'Home', icon: FiHome, route: routes.home() },
     { name: 'Transaction', icon: FiTrendingUp, route: routes.transactions() },
+    {
+      name: 'Categories',
+      icon: FiFolder,
+      route: routes.transactionCategories(),
+    },
   ]
   return (
     <Box

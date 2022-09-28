@@ -13,12 +13,24 @@ generator client {
 // TODO: Please remove the following example:
 
 model Transaction {
-  id              Int       @id @default(autoincrement())
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
-  deletedAt       DateTime?
-  transactionDate DateTime  @default(now())
-  type            String
-  amount          Float
-  description     String
+  id                    Int                 @id @default(autoincrement())
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  deletedAt             DateTime?
+  transactionDate       DateTime            @default(now())
+  type                  String
+  amount                Float
+  description           String
+  TransactionCateogory  TransactionCategory @relation(fields: [transactionCategoryId], references: [id])
+  transactionCategoryId Int
+}
+
+model TransactionCategory {
+  id          Int           @id @default(autoincrement())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  deletedAt   DateTime?
+  name        String
+  icon        String
+  Transaction Transaction[]
 }
