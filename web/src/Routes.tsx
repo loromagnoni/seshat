@@ -11,16 +11,21 @@ import { Set, Router, Route } from '@redwoodjs/router'
 
 import TransactionsLayout from 'src/layouts/TransactionsLayout'
 
+import HomeLayout from './layouts/HomeLayout/HomeLayout'
+
 const Routes = () => {
   return (
     <Router>
-      <Set wrap={TransactionsLayout}>
-        <Route path="/transactions/new" page={TransactionNewTransactionPage} name="newTransaction" />
-        <Route path="/transactions/{id:Int}/edit" page={TransactionEditTransactionPage} name="editTransaction" />
-        <Route path="/transactions/{id:Int}" page={TransactionTransactionPage} name="transaction" />
-        <Route path="/transactions" page={TransactionTransactionsPage} name="transactions" />
+      <Set wrap={HomeLayout}>
+        <Route path="/" page={HomePage} name="home" />
+        <Set wrap={TransactionsLayout}>
+          <Route path="/transactions/new" page={TransactionNewTransactionPage} name="newTransaction" />
+          <Route path="/transactions/{id:Int}/edit" page={TransactionEditTransactionPage} name="editTransaction" />
+          <Route path="/transactions/{id:Int}" page={TransactionTransactionPage} name="transaction" />
+          <Route path="/transactions" page={TransactionTransactionsPage} name="transactions" />
+        </Set>
+        <Route notfound page={NotFoundPage} />
       </Set>
-      <Route notfound page={NotFoundPage} />
     </Router>
   )
 }

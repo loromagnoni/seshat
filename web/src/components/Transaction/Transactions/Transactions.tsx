@@ -84,9 +84,6 @@ const TransactionsList = ({ transactions }: FindTransactions) => {
         <thead>
           <tr>
             <th>Id</th>
-            <th>Created at</th>
-            <th>Updated at</th>
-            <th>Deleted at</th>
             <th>Transaction date</th>
             <th>Type</th>
             <th>Amount</th>
@@ -98,9 +95,6 @@ const TransactionsList = ({ transactions }: FindTransactions) => {
           {transactions.map((transaction) => (
             <tr key={transaction.id}>
               <td>{truncate(transaction.id)}</td>
-              <td>{timeTag(transaction.createdAt)}</td>
-              <td>{timeTag(transaction.updatedAt)}</td>
-              <td>{timeTag(transaction.deletedAt)}</td>
               <td>{timeTag(transaction.transactionDate)}</td>
               <td>{truncate(transaction.type)}</td>
               <td>{truncate(transaction.amount)}</td>
