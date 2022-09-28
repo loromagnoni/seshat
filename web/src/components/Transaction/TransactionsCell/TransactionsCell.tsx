@@ -26,10 +26,7 @@ export const Empty = () => {
   return (
     <div className="rw-text-center">
       {'No transactions yet. '}
-      <Link
-        to={routes.newTransaction()}
-        className="rw-link"
-      >
+      <Link to={routes.newTransaction()} className="rw-link">
         {'Create one?'}
       </Link>
     </div>
@@ -40,6 +37,8 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div className="rw-cell-error">{error?.message}</div>
 )
 
-export const Success = ({ transactions }: CellSuccessProps<FindTransactions>) => {
+export const Success = ({
+  transactions,
+}: CellSuccessProps<FindTransactions>) => {
   return <Transactions transactions={transactions} />
 }

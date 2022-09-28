@@ -1,12 +1,14 @@
 import humanize from 'humanize-string'
+import type {
+  DeleteTransactionMutationVariables,
+  FindTransactions,
+} from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/Transaction/TransactionsCell'
-
-import type { DeleteTransactionMutationVariables, FindTransactions } from 'types/graphql'
 
 const DELETE_TRANSACTION_MUTATION = gql`
   mutation DeleteTransactionMutation($id: Int!) {
@@ -36,7 +38,6 @@ const truncate = (value: string | number) => {
   }
   return output ?? ''
 }
-
 
 const jsonTruncate = (obj: unknown) => {
   return truncate(JSON.stringify(obj, null, 2))

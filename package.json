@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "lint": "npx prettier --write . && npx eslint . --fix"
+  },
   "workspaces": {
     "packages": [
       "api",

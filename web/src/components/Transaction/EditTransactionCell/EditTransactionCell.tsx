@@ -22,7 +22,10 @@ export const QUERY = gql`
   }
 `
 const UPDATE_TRANSACTION_MUTATION = gql`
-  mutation UpdateTransactionMutation($id: Int!, $input: UpdateTransactionInput!) {
+  mutation UpdateTransactionMutation(
+    $id: Int!
+    $input: UpdateTransactionInput!
+  ) {
     updateTransaction(id: $id, input: $input) {
       id
       createdAt
@@ -42,7 +45,9 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div className="rw-cell-error">{error?.message}</div>
 )
 
-export const Success = ({ transaction }: CellSuccessProps<EditTransactionById>) => {
+export const Success = ({
+  transaction,
+}: CellSuccessProps<EditTransactionById>) => {
   const [updateTransaction, { loading, error }] = useMutation(
     UPDATE_TRANSACTION_MUTATION,
     {
@@ -66,10 +71,17 @@ export const Success = ({ transaction }: CellSuccessProps<EditTransactionById>) 
   return (
     <div className="rw-segment">
       <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">Edit Transaction {transaction?.id}</h2>
+        <h2 className="rw-heading rw-heading-secondary">
+          Edit Transaction {transaction?.id}
+        </h2>
       </header>
       <div className="rw-segment-main">
-        <TransactionForm transaction={transaction} onSave={onSave} error={error} loading={loading} />
+        <TransactionForm
+          transaction={transaction}
+          onSave={onSave}
+          error={error}
+          loading={loading}
+        />
       </div>
     </div>
   )

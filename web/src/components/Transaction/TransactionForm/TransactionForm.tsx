@@ -1,3 +1,5 @@
+import type { EditTransactionById, UpdateTransactionInput } from 'types/graphql'
+
 import {
   Form,
   FormError,
@@ -7,18 +9,13 @@ import {
   TextField,
   Submit,
 } from '@redwoodjs/forms'
-
-import type { EditTransactionById, UpdateTransactionInput } from 'types/graphql'
 import type { RWGqlError } from '@redwoodjs/forms'
-
-
 
 const formatDatetime = (value) => {
   if (value) {
     return value.replace(/:\d{2}\.\d{3}\w/, '')
   }
 }
-
 
 type FormTransaction = NonNullable<EditTransactionById['transaction']>
 
@@ -31,19 +28,6 @@ interface TransactionFormProps {
 
 const TransactionForm = (props: TransactionFormProps) => {
   const onSubmit = (data: FormTransaction) => {
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
-    
-    
-  
     props.onSave(data, props?.transaction?.id)
   }
 
@@ -56,7 +40,7 @@ const TransactionForm = (props: TransactionFormProps) => {
           titleClassName="rw-form-error-title"
           listClassName="rw-form-error-list"
         />
-      
+
         <Label
           name="deletedAt"
           className="rw-label"
@@ -64,14 +48,13 @@ const TransactionForm = (props: TransactionFormProps) => {
         >
           Deleted at
         </Label>
-        
-          <DatetimeLocalField
-            name="deletedAt"
-            defaultValue={formatDatetime(props.transaction?.deletedAt)}
-            className="rw-input"
-            errorClassName="rw-input rw-input-error"
-          />
-        
+
+        <DatetimeLocalField
+          name="deletedAt"
+          defaultValue={formatDatetime(props.transaction?.deletedAt)}
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+        />
 
         <FieldError name="deletedAt" className="rw-field-error" />
 
@@ -82,15 +65,14 @@ const TransactionForm = (props: TransactionFormProps) => {
         >
           Type
         </Label>
-        
-          <TextField
-            name="type"
-            defaultValue={props.transaction?.type}
-            className="rw-input"
-            errorClassName="rw-input rw-input-error"
-            validation={{ required: true }}
-          />
-        
+
+        <TextField
+          name="type"
+          defaultValue={props.transaction?.type}
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+          validation={{ required: true }}
+        />
 
         <FieldError name="type" className="rw-field-error" />
 
@@ -101,15 +83,14 @@ const TransactionForm = (props: TransactionFormProps) => {
         >
           Amount
         </Label>
-        
-          <TextField
-            name="amount"
-            defaultValue={props.transaction?.amount}
-            className="rw-input"
-            errorClassName="rw-input rw-input-error"
-            validation={{ valueAsNumber: true, required: true }}
-          />
-        
+
+        <TextField
+          name="amount"
+          defaultValue={props.transaction?.amount}
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+          validation={{ valueAsNumber: true, required: true }}
+        />
 
         <FieldError name="amount" className="rw-field-error" />
 
@@ -120,23 +101,19 @@ const TransactionForm = (props: TransactionFormProps) => {
         >
           Description
         </Label>
-        
-          <TextField
-            name="description"
-            defaultValue={props.transaction?.description}
-            className="rw-input"
-            errorClassName="rw-input rw-input-error"
-            validation={{ required: true }}
-          />
-        
+
+        <TextField
+          name="description"
+          defaultValue={props.transaction?.description}
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+          validation={{ required: true }}
+        />
 
         <FieldError name="description" className="rw-field-error" />
 
         <div className="rw-button-group">
-          <Submit
-            disabled={props.loading}
-            className="rw-button rw-button-blue"
-          >
+          <Submit disabled={props.loading} className="rw-button rw-button-blue">
             Save
           </Submit>
         </div>
