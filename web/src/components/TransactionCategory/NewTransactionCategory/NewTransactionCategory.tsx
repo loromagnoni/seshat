@@ -7,7 +7,9 @@ import TransactionCategoryForm from 'src/components/TransactionCategory/Transact
 import type { CreateTransactionCategoryInput } from 'types/graphql'
 
 const CREATE_TRANSACTION_CATEGORY_MUTATION = gql`
-  mutation CreateTransactionCategoryMutation($input: CreateTransactionCategoryInput!) {
+  mutation CreateTransactionCategoryMutation(
+    $input: CreateTransactionCategoryInput!
+  ) {
     createTransactionCategory(input: $input) {
       id
     }
@@ -35,10 +37,16 @@ const NewTransactionCategory = () => {
   return (
     <div className="rw-segment">
       <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">New TransactionCategory</h2>
+        <h2 className="rw-heading rw-heading-secondary">
+          New TransactionCategory
+        </h2>
       </header>
       <div className="rw-segment-main">
-        <TransactionCategoryForm onSave={onSave} loading={loading} error={error} />
+        <TransactionCategoryForm
+          onSave={onSave}
+          loading={loading}
+          error={error}
+        />
       </div>
     </div>
   )

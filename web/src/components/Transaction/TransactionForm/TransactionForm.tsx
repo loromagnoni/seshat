@@ -1,5 +1,3 @@
-import type { EditTransactionById, UpdateTransactionInput } from 'types/graphql'
-
 import {
   Form,
   FormError,
@@ -7,8 +5,11 @@ import {
   Label,
   DatetimeLocalField,
   TextField,
+  NumberField,
   Submit,
 } from '@redwoodjs/forms'
+
+import type { EditTransactionById, UpdateTransactionInput } from 'types/graphql'
 import type { RWGqlError } from '@redwoodjs/forms'
 
 const formatDatetime = (value) => {
@@ -111,6 +112,24 @@ const TransactionForm = (props: TransactionFormProps) => {
         />
 
         <FieldError name="description" className="rw-field-error" />
+
+        <Label
+          name="transactionCategoryId"
+          className="rw-label"
+          errorClassName="rw-label rw-label-error"
+        >
+          Transaction category id
+        </Label>
+
+        <NumberField
+          name="transactionCategoryId"
+          defaultValue={props.transaction?.transactionCategoryId}
+          className="rw-input"
+          errorClassName="rw-input rw-input-error"
+          validation={{ required: true }}
+        />
+
+        <FieldError name="transactionCategoryId" className="rw-field-error" />
 
         <div className="rw-button-group">
           <Submit disabled={props.loading} className="rw-button rw-button-blue">

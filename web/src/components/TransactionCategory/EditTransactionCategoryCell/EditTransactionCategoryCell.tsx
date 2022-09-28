@@ -1,4 +1,7 @@
-import type { EditTransactionCategoryById, UpdateTransactionCategoryInput } from 'types/graphql'
+import type {
+  EditTransactionCategoryById,
+  UpdateTransactionCategoryInput,
+} from 'types/graphql'
 
 import { navigate, routes } from '@redwoodjs/router'
 import type { CellSuccessProps, CellFailureProps } from '@redwoodjs/web'
@@ -20,7 +23,10 @@ export const QUERY = gql`
   }
 `
 const UPDATE_TRANSACTION_CATEGORY_MUTATION = gql`
-  mutation UpdateTransactionCategoryMutation($id: Int!, $input: UpdateTransactionCategoryInput!) {
+  mutation UpdateTransactionCategoryMutation(
+    $id: Int!
+    $input: UpdateTransactionCategoryInput!
+  ) {
     updateTransactionCategory(id: $id, input: $input) {
       id
       createdAt
@@ -38,7 +44,9 @@ export const Failure = ({ error }: CellFailureProps) => (
   <div className="rw-cell-error">{error?.message}</div>
 )
 
-export const Success = ({ transactionCategory }: CellSuccessProps<EditTransactionCategoryById>) => {
+export const Success = ({
+  transactionCategory,
+}: CellSuccessProps<EditTransactionCategoryById>) => {
   const [updateTransactionCategory, { loading, error }] = useMutation(
     UPDATE_TRANSACTION_CATEGORY_MUTATION,
     {
@@ -62,10 +70,17 @@ export const Success = ({ transactionCategory }: CellSuccessProps<EditTransactio
   return (
     <div className="rw-segment">
       <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">Edit TransactionCategory {transactionCategory?.id}</h2>
+        <h2 className="rw-heading rw-heading-secondary">
+          Edit TransactionCategory {transactionCategory?.id}
+        </h2>
       </header>
       <div className="rw-segment-main">
-        <TransactionCategoryForm transactionCategory={transactionCategory} onSave={onSave} error={error} loading={loading} />
+        <TransactionCategoryForm
+          transactionCategory={transactionCategory}
+          onSave={onSave}
+          error={error}
+          loading={loading}
+        />
       </div>
     </div>
   )

@@ -18,6 +18,7 @@ export const QUERY = gql`
       type
       amount
       description
+      transactionCategoryId
     }
   }
 `
@@ -35,6 +36,7 @@ const UPDATE_TRANSACTION_MUTATION = gql`
       type
       amount
       description
+      transactionCategoryId
     }
   }
 `

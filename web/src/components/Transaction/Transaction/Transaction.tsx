@@ -1,12 +1,13 @@
 import humanize from 'humanize-string'
-import type {
-  DeleteTransactionMutationVariables,
-  FindTransactionById,
-} from 'types/graphql'
 
 import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
+
+import type {
+  DeleteTransactionMutationVariables,
+  FindTransactionById,
+} from 'types/graphql'
 
 const DELETE_TRANSACTION_MUTATION = gql`
   mutation DeleteTransactionMutation($id: Int!) {
@@ -111,6 +112,10 @@ const Transaction = ({ transaction }: Props) => {
             <tr>
               <th>Description</th>
               <td>{transaction.description}</td>
+            </tr>
+            <tr>
+              <th>Transaction category id</th>
+              <td>{transaction.transactionCategoryId}</td>
             </tr>
           </tbody>
         </table>

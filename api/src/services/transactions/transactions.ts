@@ -1,4 +1,8 @@
-import type { QueryResolvers, MutationResolvers } from 'types/graphql'
+import type {
+  QueryResolvers,
+  MutationResolvers,
+  TransactionRelationResolvers,
+} from 'types/graphql'
 
 import { db } from 'src/lib/db'
 
@@ -36,4 +40,12 @@ export const deleteTransaction: MutationResolvers['deleteTransaction'] = ({
   return db.transaction.delete({
     where: { id },
   })
+}
+
+export const Transaction: TransactionRelationResolvers = {
+  TransactionCateogory: (_obj, { root }) => {
+    return db.transaction
+      .findUnique({ where: { id: root?.id } })
+      .TransactionCateogory()
+  },
 }

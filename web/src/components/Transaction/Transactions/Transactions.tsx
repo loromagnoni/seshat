@@ -1,14 +1,15 @@
 import humanize from 'humanize-string'
-import type {
-  DeleteTransactionMutationVariables,
-  FindTransactions,
-} from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/Transaction/TransactionsCell'
+
+import type {
+  DeleteTransactionMutationVariables,
+  FindTransactions,
+} from 'types/graphql'
 
 const DELETE_TRANSACTION_MUTATION = gql`
   mutation DeleteTransactionMutation($id: Int!) {
@@ -84,10 +85,14 @@ const TransactionsList = ({ transactions }: FindTransactions) => {
         <thead>
           <tr>
             <th>Id</th>
+            <th>Created at</th>
+            <th>Updated at</th>
+            <th>Deleted at</th>
             <th>Transaction date</th>
             <th>Type</th>
             <th>Amount</th>
             <th>Description</th>
+            <th>Transaction category id</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -95,10 +100,14 @@ const TransactionsList = ({ transactions }: FindTransactions) => {
           {transactions.map((transaction) => (
             <tr key={transaction.id}>
               <td>{truncate(transaction.id)}</td>
+              <td>{timeTag(transaction.createdAt)}</td>
+              <td>{timeTag(transaction.updatedAt)}</td>
+              <td>{timeTag(transaction.deletedAt)}</td>
               <td>{timeTag(transaction.transactionDate)}</td>
               <td>{truncate(transaction.type)}</td>
               <td>{truncate(transaction.amount)}</td>
               <td>{truncate(transaction.description)}</td>
+              <td>{truncate(transaction.transactionCategoryId)}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link

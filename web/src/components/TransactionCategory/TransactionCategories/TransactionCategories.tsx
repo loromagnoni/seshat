@@ -6,7 +6,10 @@ import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/TransactionCategory/TransactionCategoriesCell'
 
-import type { DeleteTransactionCategoryMutationVariables, FindTransactionCategories } from 'types/graphql'
+import type {
+  DeleteTransactionCategoryMutationVariables,
+  FindTransactionCategories,
+} from 'types/graphql'
 
 const DELETE_TRANSACTION_CATEGORY_MUTATION = gql`
   mutation DeleteTransactionCategoryMutation($id: Int!) {
@@ -37,7 +40,6 @@ const truncate = (value: string | number) => {
   return output ?? ''
 }
 
-
 const jsonTruncate = (obj: unknown) => {
   return truncate(JSON.stringify(obj, null, 2))
 }
@@ -56,23 +58,32 @@ const checkboxInputTag = (checked: boolean) => {
   return <input type="checkbox" checked={checked} disabled />
 }
 
-const TransactionCategoriesList = ({ transactionCategories }: FindTransactionCategories) => {
-  const [deleteTransactionCategory] = useMutation(DELETE_TRANSACTION_CATEGORY_MUTATION, {
-    onCompleted: () => {
-      toast.success('TransactionCategory deleted')
-    },
-    onError: (error) => {
-      toast.error(error.message)
-    },
-    // This refetches the query on the list page. Read more about other ways to
-    // update the cache over here:
-    // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
-    refetchQueries: [{ query: QUERY }],
-    awaitRefetchQueries: true,
-  })
+const TransactionCategoriesList = ({
+  transactionCategories,
+}: FindTransactionCategories) => {
+  const [deleteTransactionCategory] = useMutation(
+    DELETE_TRANSACTION_CATEGORY_MUTATION,
+    {
+      onCompleted: () => {
+        toast.success('TransactionCategory deleted')
+      },
+      onError: (error) => {
+        toast.error(error.message)
+      },
+      // This refetches the query on the list page. Read more about other ways to
+      // update the cache over here:
+      // https://www.apollographql.com/docs/react/data/mutations/#making-all-other-cache-updates
+      refetchQueries: [{ query: QUERY }],
+      awaitRefetchQueries: true,
+    }
+  )
 
-  const onDeleteClick = (id: DeleteTransactionCategoryMutationVariables['id']) => {
-    if (confirm('Are you sure you want to delete transactionCategory ' + id + '?')) {
+  const onDeleteClick = (
+    id: DeleteTransactionCategoryMutationVariables['id']
+  ) => {
+    if (
+      confirm('Are you sure you want to delete transactionCategory ' + id + '?')
+    ) {
       deleteTransactionCategory({ variables: { id } })
     }
   }
@@ -103,14 +114,22 @@ const TransactionCategoriesList = ({ transactionCategories }: FindTransactionCat
               <td>
                 <nav className="rw-table-actions">
                   <Link
-                    to={routes.transactionCategory({ id: transactionCategory.id })}
-                    title={'Show transactionCategory ' + transactionCategory.id + ' detail'}
+                    to={routes.transactionCategory({
+                      id: transactionCategory.id,
+                    })}
+                    title={
+                      'Show transactionCategory ' +
+                      transactionCategory.id +
+                      ' detail'
+                    }
                     className="rw-button rw-button-small"
                   >
                     Show
                   </Link>
                   <Link
-                    to={routes.editTransactionCategory({ id: transactionCategory.id })}
+                    to={routes.editTransactionCategory({
+                      id: transactionCategory.id,
+                    })}
                     title={'Edit transactionCategory ' + transactionCategory.id}
                     className="rw-button rw-button-small rw-button-blue"
                   >
@@ -118,7 +137,9 @@ const TransactionCategoriesList = ({ transactionCategories }: FindTransactionCat
                   </Link>
                   <button
                     type="button"
-                    title={'Delete transactionCategory ' + transactionCategory.id}
+                    title={
+                      'Delete transactionCategory ' + transactionCategory.id
+                    }
                     className="rw-button rw-button-small rw-button-red"
                     onClick={() => onDeleteClick(transactionCategory.id)}
                   >

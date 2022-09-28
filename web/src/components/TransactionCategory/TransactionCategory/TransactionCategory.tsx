@@ -4,7 +4,10 @@ import { Link, routes, navigate } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import type { DeleteTransactionCategoryMutationVariables, FindTransactionCategoryById } from 'types/graphql'
+import type {
+  DeleteTransactionCategoryMutationVariables,
+  FindTransactionCategoryById,
+} from 'types/graphql'
 
 const DELETE_TRANSACTION_CATEGORY_MUTATION = gql`
   mutation DeleteTransactionCategoryMutation($id: Int!) {
@@ -48,22 +51,31 @@ const checkboxInputTag = (checked: boolean) => {
 }
 
 interface Props {
-  transactionCategory: NonNullable<FindTransactionCategoryById['transactionCategory']>
+  transactionCategory: NonNullable<
+    FindTransactionCategoryById['transactionCategory']
+  >
 }
 
 const TransactionCategory = ({ transactionCategory }: Props) => {
-  const [deleteTransactionCategory] = useMutation(DELETE_TRANSACTION_CATEGORY_MUTATION, {
-    onCompleted: () => {
-      toast.success('TransactionCategory deleted')
-      navigate(routes.transactionCategories())
-    },
-    onError: (error) => {
-      toast.error(error.message)
-    },
-  })
+  const [deleteTransactionCategory] = useMutation(
+    DELETE_TRANSACTION_CATEGORY_MUTATION,
+    {
+      onCompleted: () => {
+        toast.success('TransactionCategory deleted')
+        navigate(routes.transactionCategories())
+      },
+      onError: (error) => {
+        toast.error(error.message)
+      },
+    }
+  )
 
-  const onDeleteClick = (id: DeleteTransactionCategoryMutationVariables['id']) => {
-    if (confirm('Are you sure you want to delete transactionCategory ' + id + '?')) {
+  const onDeleteClick = (
+    id: DeleteTransactionCategoryMutationVariables['id']
+  ) => {
+    if (
+      confirm('Are you sure you want to delete transactionCategory ' + id + '?')
+    ) {
       deleteTransactionCategory({ variables: { id } })
     }
   }
@@ -81,19 +93,24 @@ const TransactionCategory = ({ transactionCategory }: Props) => {
             <tr>
               <th>Id</th>
               <td>{transactionCategory.id}</td>
-            </tr><tr>
+            </tr>
+            <tr>
               <th>Created at</th>
               <td>{timeTag(transactionCategory.createdAt)}</td>
-            </tr><tr>
+            </tr>
+            <tr>
               <th>Updated at</th>
               <td>{timeTag(transactionCategory.updatedAt)}</td>
-            </tr><tr>
+            </tr>
+            <tr>
               <th>Deleted at</th>
               <td>{timeTag(transactionCategory.deletedAt)}</td>
-            </tr><tr>
+            </tr>
+            <tr>
               <th>Name</th>
               <td>{transactionCategory.name}</td>
-            </tr><tr>
+            </tr>
+            <tr>
               <th>Icon</th>
               <td>{transactionCategory.icon}</td>
             </tr>

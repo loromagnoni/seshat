@@ -5,16 +5,15 @@ type TransactionCategoryLayoutProps = {
   children: React.ReactNode
 }
 
-const TransactionCategoriesLayout = ({ children }: TransactionCategoryLayoutProps) => {
+const TransactionCategoriesLayout = ({
+  children,
+}: TransactionCategoryLayoutProps) => {
   return (
     <div className="rw-scaffold">
       <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
       <header className="rw-header">
         <h1 className="rw-heading rw-heading-primary">
-          <Link
-            to={routes.transactionCategories()}
-            className="rw-link"
-          >
+          <Link to={routes.transactionCategories()} className="rw-link">
             TransactionCategories
           </Link>
         </h1>

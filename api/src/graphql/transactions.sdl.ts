@@ -8,6 +8,8 @@ export const schema = gql`
     type: String!
     amount: Float!
     description: String!
+    TransactionCateogory: TransactionCategory!
+    transactionCategoryId: Int!
   }
 
   type Query {
@@ -21,6 +23,7 @@ export const schema = gql`
     type: String!
     amount: Float!
     description: String!
+    transactionCategoryId: Int!
   }
 
   input UpdateTransactionInput {
@@ -29,6 +32,7 @@ export const schema = gql`
     type: String
     amount: Float
     description: String
+    transactionCategoryId: Int
   }
 
   type Mutation {

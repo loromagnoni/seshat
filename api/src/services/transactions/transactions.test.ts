@@ -31,20 +31,24 @@ describe('transactions', () => {
     }
   )
 
-  scenario('creates a transaction', async () => {
+  scenario('creates a transaction', async (scenario: StandardScenario) => {
     const result = await createTransaction({
       input: {
-        updatedAt: '2022-09-28T17:34:04Z',
+        updatedAt: '2022-09-28T20:55:15Z',
         type: 'String',
-        amount: 9304060.23694433,
+        amount: 3669599.0545665612,
         description: 'String',
+        transactionCategoryId: scenario.transaction.two.transactionCategoryId,
       },
     })
 
-    expect(result.updatedAt).toEqual('2022-09-28T17:34:04Z')
+    expect(result.updatedAt).toEqual('2022-09-28T20:55:15Z')
     expect(result.type).toEqual('String')
-    expect(result.amount).toEqual(9304060.23694433)
+    expect(result.amount).toEqual(3669599.0545665612)
     expect(result.description).toEqual('String')
+    expect(result.transactionCategoryId).toEqual(
+      scenario.transaction.two.transactionCategoryId
+    )
   })
 
   scenario('updates a transaction', async (scenario: StandardScenario) => {
@@ -53,10 +57,10 @@ describe('transactions', () => {
     })) as Transaction
     const result = await updateTransaction({
       id: original.id,
-      input: { updatedAt: '2022-09-29T17:34:04Z' },
+      input: { updatedAt: '2022-09-29T20:55:15Z' },
     })
 
-    expect(result.updatedAt).toEqual('2022-09-29T17:34:04Z')
+    expect(result.updatedAt).toEqual('2022-09-29T20:55:15Z')
   })
 
   scenario('deletes a transaction', async (scenario: StandardScenario) => {

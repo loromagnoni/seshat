@@ -16,6 +16,7 @@ export const QUERY = gql`
       type
       amount
       description
+      transactionCategoryId
     }
   }
 `
