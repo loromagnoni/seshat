@@ -30,6 +30,7 @@ import {
   FiTrendingUp,
 } from 'react-icons/fi'
 
+import { useAuth } from '@redwoodjs/auth'
 import { Link, routes } from '@redwoodjs/router'
 
 type HomeLayoutProps = {
@@ -153,6 +154,7 @@ interface MobileProps extends FlexProps {
   onOpen: () => void
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const { logOut } = useAuth()
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -217,7 +219,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue('white', 'gray.900')}
               borderColor={useColorModeValue('gray.200', 'gray.700')}
             >
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem onClick={() => logOut()}>Sign out</MenuItem>
             </MenuList>
           </Menu>
         </Flex>
