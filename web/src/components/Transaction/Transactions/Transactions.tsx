@@ -1,15 +1,14 @@
 import humanize from 'humanize-string'
+import type {
+  DeleteTransactionMutationVariables,
+  FindTransactions,
+} from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { QUERY } from 'src/components/Transaction/TransactionsCell'
-
-import type {
-  DeleteTransactionMutationVariables,
-  FindTransactions,
-} from 'types/graphql'
 
 const DELETE_TRANSACTION_MUTATION = gql`
   mutation DeleteTransactionMutation($id: Int!) {
@@ -92,7 +91,7 @@ const TransactionsList = ({ transactions }: FindTransactions) => {
             <th>Type</th>
             <th>Amount</th>
             <th>Description</th>
-            <th>Transaction category id</th>
+            <th>Transaction category</th>
             <th>&nbsp;</th>
           </tr>
         </thead>
@@ -107,7 +106,7 @@ const TransactionsList = ({ transactions }: FindTransactions) => {
               <td>{truncate(transaction.type)}</td>
               <td>{truncate(transaction.amount)}</td>
               <td>{truncate(transaction.description)}</td>
-              <td>{truncate(transaction.transactionCategoryId)}</td>
+              <td>{transaction.TransactionCateogory.icon}</td>
               <td>
                 <nav className="rw-table-actions">
                   <Link

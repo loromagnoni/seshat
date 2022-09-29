@@ -17,6 +17,9 @@ export const QUERY = gql`
       amount
       description
       transactionCategoryId
+      TransactionCateogory {
+        icon
+      }
     }
   }
 `
