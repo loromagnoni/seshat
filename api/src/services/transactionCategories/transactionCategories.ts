@@ -1,28 +1,31 @@
 import type {
-  QueryResolvers,
   MutationResolvers,
+  QueryResolvers,
   TransactionCategoryRelationResolvers,
 } from 'types/graphql'
 
+import { authFilter, authProxy } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 export const transactionCategories: QueryResolvers['transactionCategories'] =
   () => {
-    return db.transactionCategory.findMany()
+    return db.transactionCategory.findMany(authFilter())
   }
 
 export const transactionCategory: QueryResolvers['transactionCategory'] = ({
   id,
 }) => {
-  return db.transactionCategory.findUnique({
-    where: { id },
-  })
+  return authProxy(
+    db.transactionCategory.findUnique({
+      where: { id },
+    })
+  )
 }
 
 export const createTransactionCategory: MutationResolvers['createTransactionCategory'] =
   ({ input }) => {
     return db.transactionCategory.create({
-      data: input,
+      data: { ...input, userId: context.currentUser.user_id },
     })
   }
 

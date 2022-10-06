@@ -7,29 +7,27 @@ const adminApp = admin.initializeApp({
   projectId: process.env.FIREBASE_PROJECT_ID,
 })
 
-/**
- * getCurrentUser returns the user information from the decoded JWT
- *
- * @param decoded - The decoded access token containing user info and JWT claims like `sub`. Note could be null.
- * @param { token, SupportedAuthTypes type } - The access token itself as well as the auth provider type
- * @param { APIGatewayEvent event, Context context } - An object which contains information from the invoker
- * such as headers and cookies, and the context information about the invocation such as IP Address
- *
- * !! BEWARE !! Anything returned from this function will be available to the
- * client--it becomes the content of `currentUser` on the web side (as well as
- * `context.currentUser` on the api side). You should carefully add additional
- * fields to the return object only once you've decided they are safe to be seen
- * if someone were to open the Web Inspector in their browser.
- *
- * @see https://github.com/redwoodjs/redwood/tree/main/packages/auth for examples
- */
-export const getCurrentUser = async (
-  decoded,
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  { token, type },
-  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-  { event, context }
-) => {
+interface DecodedJWTToken {
+  picture: string
+  iss: string
+  aud: string
+  auth_time: number
+  user_id: string
+  sub: string
+  iat: number
+  exp: number
+  email: string
+  email_verified: boolean
+  firebase: {
+    identities: {
+      'google.com': string[]
+      email: string[]
+    }
+    sign_in_provider: string
+  }
+}
+
+export const getCurrentUser = async (decoded: DecodedJWTToken) => {
   return decoded
 }
 
@@ -59,4 +57,15 @@ export const requireAuth = () => {
 
   // Custom RBAC implementation required for firebase
   // https://firebase.google.com/docs/auth/admin/custom-claims
+}
+
+export const authFilter = () => {
+  return { where: { userId: context.currentUser.user_id } }
+}
+
+export const authProxy = async <T extends { userId: string }>(
+  task: Promise<T>
+) => {
+  const res = await task
+  return res.userId === context.currentUser.user_id ? res : undefined
 }

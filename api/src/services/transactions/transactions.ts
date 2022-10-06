@@ -4,23 +4,26 @@ import type {
   TransactionRelationResolvers,
 } from 'types/graphql'
 
+import { authFilter, authProxy } from 'src/lib/auth'
 import { db } from 'src/lib/db'
 
 export const transactions: QueryResolvers['transactions'] = () => {
-  return db.transaction.findMany()
+  return db.transaction.findMany(authFilter())
 }
 
 export const transaction: QueryResolvers['transaction'] = ({ id }) => {
-  return db.transaction.findUnique({
-    where: { id },
-  })
+  return authProxy(
+    db.transaction.findUnique({
+      where: { id },
+    })
+  )
 }
 
 export const createTransaction: MutationResolvers['createTransaction'] = ({
   input,
 }) => {
   return db.transaction.create({
-    data: input,
+    data: { ...input, userId: context.currentUser.user_id },
   })
 }
 

@@ -8,10 +8,6 @@ generator client {
   binaryTargets = "native"
 }
 
-// Define your own datamodels here and run `yarn redwood prisma migrate dev`
-// to create migrations for them and apply to your dev DB.
-// TODO: Please remove the following example:
-
 model Transaction {
   id                    Int                 @id @default(autoincrement())
   createdAt             DateTime            @default(now())
@@ -23,6 +19,7 @@ model Transaction {
   description           String
   TransactionCateogory  TransactionCategory @relation(fields: [transactionCategoryId], references: [id])
   transactionCategoryId Int
+  userId                String
 }
 
 model TransactionCategory {
@@ -32,5 +29,6 @@ model TransactionCategory {
   deletedAt   DateTime?
   name        String
   icon        String
+  userId      String
   Transaction Transaction[]
 }
