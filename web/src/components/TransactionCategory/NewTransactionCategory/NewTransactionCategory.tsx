@@ -1,10 +1,10 @@
+import type { CreateTransactionCategoryInput } from 'types/graphql'
+
 import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import TransactionCategoryForm from 'src/components/TransactionCategory/TransactionCategoryForm'
-
-import type { CreateTransactionCategoryInput } from 'types/graphql'
 
 const CREATE_TRANSACTION_CATEGORY_MUTATION = gql`
   mutation CreateTransactionCategoryMutation(

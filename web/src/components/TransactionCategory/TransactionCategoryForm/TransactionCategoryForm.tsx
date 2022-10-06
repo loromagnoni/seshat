@@ -1,3 +1,8 @@
+import type {
+  EditTransactionCategoryById,
+  UpdateTransactionCategoryInput,
+} from 'types/graphql'
+
 import {
   Form,
   FormError,
@@ -7,11 +12,6 @@ import {
   TextField,
   Submit,
 } from '@redwoodjs/forms'
-
-import type {
-  EditTransactionCategoryById,
-  UpdateTransactionCategoryInput,
-} from 'types/graphql'
 import type { RWGqlError } from '@redwoodjs/forms'
 
 const formatDatetime = (value) => {
