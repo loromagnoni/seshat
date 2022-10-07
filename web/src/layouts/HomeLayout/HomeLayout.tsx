@@ -33,6 +33,8 @@ import {
 import { useAuth } from '@redwoodjs/auth'
 import { Link, routes } from '@redwoodjs/router'
 
+import { ThemeSwitcher } from 'src/components/ui/themeSwitch'
+
 type HomeLayoutProps = {
   children: React.ReactNode
 }
@@ -89,8 +91,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     },
   ]
   return (
-    <Box
-      transition="3s ease"
+    <VStack
+      pb={8}
+      alignItems={'self-start'}
+      justifyContent={'space-between'}
+      transition="1s ease"
       bg={useColorModeValue('white', 'gray.900')}
       borderRight="1px"
       borderRightColor={useColorModeValue('gray.200', 'gray.700')}
@@ -99,18 +104,31 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
-        </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-      </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon} route={link.route}>
-          {link.name}
-        </NavItem>
-      ))}
-    </Box>
+      <Box width="full">
+        <HStack
+          h="20"
+          alignItems="center"
+          mx="8"
+          justifyContent="space-between"
+        >
+          <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+            Logo
+          </Text>
+          <CloseButton
+            display={{ base: 'flex', md: 'none' }}
+            onClick={onClose}
+          />
+        </HStack>
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} icon={link.icon} route={link.route}>
+            {link.name}
+          </NavItem>
+        ))}
+      </Box>
+      <Box p="4" mx="4">
+        <ThemeSwitcher />
+      </Box>
+    </VStack>
   )
 }
 
