@@ -7,6 +7,7 @@ import {
   CloseButton,
   Drawer,
   DrawerContent,
+  DrawerOverlay,
   Flex,
   FlexProps,
   HStack,
@@ -34,6 +35,7 @@ import { useAuth } from '@redwoodjs/auth'
 import { Link, routes } from '@redwoodjs/router'
 
 import { ThemeSwitcher } from 'src/components/ui/themeSwitch'
+import { withDelay } from 'src/helper'
 
 type HomeLayoutProps = {
   children: React.ReactNode
@@ -55,10 +57,11 @@ const HomeLayout = ({ children }: HomeLayoutProps) => {
         onOverlayClick={onClose}
         size="full"
       >
+        <DrawerOverlay />
         <DrawerContent>
           <SidebarContent onClose={onClose} />
         </DrawerContent>
-      </Drawer>
+      </Drawer>{' '}
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
@@ -92,6 +95,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   ]
   return (
     <VStack
+      zIndex={10}
       pb={8}
       alignItems={'self-start'}
       justifyContent={'space-between'}
@@ -120,7 +124,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           />
         </HStack>
         {LinkItems.map((link) => (
-          <NavItem key={link.name} icon={link.icon} route={link.route}>
+          <NavItem
+            key={link.name}
+            icon={link.icon}
+            onClick={onClose}
+            route={link.route}
+          >
             {link.name}
           </NavItem>
         ))}
@@ -136,10 +145,15 @@ interface NavItemProps extends FlexProps {
   icon: IconType
   route: string
   children: ReactText
+  onClick: () => void
 }
-const NavItem = ({ icon, children, route }: NavItemProps) => {
+const NavItem = ({ icon, children, route, onClick }: NavItemProps) => {
   return (
-    <Link to={route} style={{ textDecoration: 'none' }}>
+    <Link
+      to={route}
+      style={{ textDecoration: 'none' }}
+      onClick={withDelay(300, onClick)}
+    >
       <Flex
         align="center"
         p="4"
