@@ -44,7 +44,11 @@ type HomeLayoutProps = {
 const HomeLayout = ({ children }: HomeLayoutProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <Box minH="100vh" bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box
+      minH="100vh"
+      bg={useColorModeValue('gray.100', 'gray.900')}
+      color={useColorModeValue('gray.900', 'white')}
+    >
       <SidebarContent
         onClose={() => onClose}
         display={{ base: 'none', md: 'block' }}

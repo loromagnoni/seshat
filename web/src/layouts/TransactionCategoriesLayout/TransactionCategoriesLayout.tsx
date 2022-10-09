@@ -1,3 +1,5 @@
+import { BsPlus } from 'react-icons/bs'
+
 import { Link, routes } from '@redwoodjs/router'
 import { Toaster } from '@redwoodjs/web/toast'
 
@@ -9,19 +11,16 @@ const TransactionCategoriesLayout = ({
   children,
 }: TransactionCategoryLayoutProps) => {
   return (
-    <div className="rw-scaffold">
+    <div>
       <Toaster toastOptions={{ className: 'rw-toast', duration: 6000 }} />
       <header className="rw-header">
-        <h1 className="rw-heading rw-heading-primary">
-          <Link to={routes.transactionCategories()} className="rw-link">
-            TransactionCategories
+        <b>
+          <Link to={routes.transactionCategories()}>
+            Transaction Categories
           </Link>
-        </h1>
-        <Link
-          to={routes.newTransactionCategory()}
-          className="rw-button rw-button-green"
-        >
-          <div className="rw-button-icon">+</div> New TransactionCategory
+        </b>
+        <Link to={routes.newTransactionCategory()}>
+          <BsPlus size={28} />
         </Link>
       </header>
       <main className="rw-main">{children}</main>
