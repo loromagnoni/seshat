@@ -33,14 +33,12 @@ const NewTransaction = () => {
   }
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">New Transaction</h2>
-      </header>
-      <div className="rw-segment-main">
-        <TransactionForm onSave={onSave} loading={loading} error={error} />
-      </div>
-    </div>
+    <TransactionForm
+      title="New transaction"
+      onSave={onSave}
+      loading={loading}
+      error={error}
+    />
   )
 }
 
