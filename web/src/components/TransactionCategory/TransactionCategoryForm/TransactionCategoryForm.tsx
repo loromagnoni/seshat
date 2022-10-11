@@ -1,18 +1,23 @@
+import { HStack, Text } from '@chakra-ui/react'
 import type {
   EditTransactionCategoryById,
   UpdateTransactionCategoryInput,
 } from 'types/graphql'
 
+import type { RWGqlError } from '@redwoodjs/forms'
 import {
+  DatetimeLocalField,
+  FieldError,
   Form,
   FormError,
-  FieldError,
   Label,
-  DatetimeLocalField,
-  TextField,
   Submit,
+  TextField,
 } from '@redwoodjs/forms'
-import type { RWGqlError } from '@redwoodjs/forms'
+
+import { Card } from 'src/components/ui/Card'
+
+import { DeleteTransactionCategoryButton } from '../DeleteCategory/DeleteTransactionCategoryButton'
 
 const formatDatetime = (value) => {
   if (value) {
@@ -32,6 +37,7 @@ interface TransactionCategoryFormProps {
   ) => void
   error: RWGqlError
   loading: boolean
+  title: string
 }
 
 const TransactionCategoryForm = (props: TransactionCategoryFormProps) => {
@@ -40,75 +46,92 @@ const TransactionCategoryForm = (props: TransactionCategoryFormProps) => {
   }
 
   return (
-    <div className="rw-form-wrapper">
-      <Form<FormTransactionCategory> onSubmit={onSubmit} error={props.error}>
-        <FormError
-          error={props.error}
-          wrapperClassName="rw-form-error-wrapper"
-          titleClassName="rw-form-error-title"
-          listClassName="rw-form-error-list"
-        />
+    <Card variant="flat-border">
+      <div className="rw-form-wrapper">
+        <Form<FormTransactionCategory> onSubmit={onSubmit} error={props.error}>
+          <FormError
+            error={props.error}
+            wrapperClassName="rw-form-error-wrapper"
+            titleClassName="rw-form-error-title"
+            listClassName="rw-form-error-list"
+          />
 
-        <Label
-          name="deletedAt"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Deleted at
-        </Label>
+          <HStack justifyContent={'space-between'}>
+            <Text fontFamily={'monospace'} fontSize={21}>
+              {props.title}
+            </Text>
+            {props.transactionCategory && (
+              <DeleteTransactionCategoryButton
+                name={props.transactionCategory.name}
+                id={props.transactionCategory.id}
+              />
+            )}
+          </HStack>
 
-        <DatetimeLocalField
-          name="deletedAt"
-          defaultValue={formatDatetime(props.transactionCategory?.deletedAt)}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-        />
+          <Label
+            name="deletedAt"
+            className="rw-label"
+            errorClassName="rw-label rw-label-error"
+          >
+            Deleted at
+          </Label>
 
-        <FieldError name="deletedAt" className="rw-field-error" />
+          <DatetimeLocalField
+            name="deletedAt"
+            defaultValue={formatDatetime(props.transactionCategory?.deletedAt)}
+            className="rw-input"
+            errorClassName="rw-input rw-input-error"
+          />
 
-        <Label
-          name="name"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Name
-        </Label>
+          <FieldError name="deletedAt" className="rw-field-error" />
 
-        <TextField
-          name="name"
-          defaultValue={props.transactionCategory?.name}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
+          <Label
+            name="name"
+            className="rw-label"
+            errorClassName="rw-label rw-label-error"
+          >
+            Name
+          </Label>
 
-        <FieldError name="name" className="rw-field-error" />
+          <TextField
+            name="name"
+            defaultValue={props.transactionCategory?.name}
+            className="rw-input"
+            errorClassName="rw-input rw-input-error"
+            validation={{ required: true }}
+          />
 
-        <Label
-          name="icon"
-          className="rw-label"
-          errorClassName="rw-label rw-label-error"
-        >
-          Icon
-        </Label>
+          <FieldError name="name" className="rw-field-error" />
 
-        <TextField
-          name="icon"
-          defaultValue={props.transactionCategory?.icon}
-          className="rw-input"
-          errorClassName="rw-input rw-input-error"
-          validation={{ required: true }}
-        />
+          <Label
+            name="icon"
+            className="rw-label"
+            errorClassName="rw-label rw-label-error"
+          >
+            Icon
+          </Label>
 
-        <FieldError name="icon" className="rw-field-error" />
+          <TextField
+            name="icon"
+            defaultValue={props.transactionCategory?.icon}
+            className="rw-input"
+            errorClassName="rw-input rw-input-error"
+            validation={{ required: true }}
+          />
 
-        <div className="rw-button-group">
-          <Submit disabled={props.loading} className="rw-button rw-button-blue">
-            Save
-          </Submit>
-        </div>
-      </Form>
-    </div>
+          <FieldError name="icon" className="rw-field-error" />
+
+          <div className="rw-button-group">
+            <Submit
+              disabled={props.loading}
+              className="rw-button rw-button-blue"
+            >
+              Save
+            </Submit>
+          </div>
+        </Form>
+      </div>
+    </Card>
   )
 }
 

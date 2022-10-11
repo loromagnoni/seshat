@@ -1,3 +1,17 @@
-// This object will be used to override Chakra-UI theme defaults.
-// See https://chakra-ui.com/docs/styled-system/theming/theme for theming options
-module.exports = {}
+const Card = {
+  variants: {
+    'flat-border': ({ colorMode }) => ({
+      borderColor: colorMode === 'light' ? 'gray.200' : 'gray.600',
+      borderWidth: 1,
+      borderRadius: 8,
+      p: 4,
+      py: 6,
+    }),
+  },
+}
+
+module.exports = {
+  components: {
+    Card,
+  },
+}

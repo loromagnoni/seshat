@@ -68,20 +68,12 @@ export const Success = ({
   }
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">
-          Edit TransactionCategory {transactionCategory?.id}
-        </h2>
-      </header>
-      <div className="rw-segment-main">
-        <TransactionCategoryForm
-          transactionCategory={transactionCategory}
-          onSave={onSave}
-          error={error}
-          loading={loading}
-        />
-      </div>
-    </div>
+    <TransactionCategoryForm
+      transactionCategory={transactionCategory}
+      onSave={onSave}
+      error={error}
+      loading={loading}
+      title={'Edit category'}
+    />
   )
 }

@@ -1,18 +1,20 @@
-import { Box, HStack, Text, useColorModeValue } from '@chakra-ui/react'
+import { HStack, Text } from '@chakra-ui/react'
 import type { EditTransactionById, UpdateTransactionInput } from 'types/graphql'
 
-import { RWGqlError, SelectField } from '@redwoodjs/forms'
 import {
   DatetimeLocalField,
   FieldError,
   Form,
   FormError,
   Label,
+  RWGqlError,
+  SelectField,
   Submit,
   TextField,
 } from '@redwoodjs/forms'
 
 import TransactionCategoriesDropdownCell from 'src/components/TransactionCategory/TransactionCategoriesDropdownCell'
+import { Card } from 'src/components/ui/Card'
 
 import { DeleteTransactionButton } from '../DeleteTransaction/DeleteTransactionButton'
 
@@ -38,13 +40,7 @@ const TransactionForm = (props: TransactionFormProps) => {
   }
 
   return (
-    <Box
-      borderColor={useColorModeValue('gray.200', 'gray.600')}
-      borderWidth={1}
-      borderRadius={8}
-      p={4}
-      py={6}
-    >
+    <Card variant="flat-border">
       <div className="rw-form-wrapper">
         <Form<FormTransaction> onSubmit={onSubmit} error={props.error}>
           <FormError
@@ -162,7 +158,7 @@ const TransactionForm = (props: TransactionFormProps) => {
           </div>
         </Form>
       </div>
-    </Box>
+    </Card>
   )
 }
 

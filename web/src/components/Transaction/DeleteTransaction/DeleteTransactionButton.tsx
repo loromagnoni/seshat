@@ -1,8 +1,8 @@
-import { FaTrash } from 'react-icons/fa'
-
 import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/dist/toast'
+
+import { DeleteButton } from 'src/components/ui/deleteButton'
 
 const DELETE_TRANSACTION_MUTATION = gql`
   mutation DeleteTransactionMutation($id: Int!) {
@@ -35,5 +35,5 @@ export const DeleteTransactionButton = ({
     }
   }
 
-  return <FaTrash onClick={onDeleteClick} />
+  return <DeleteButton onClick={onDeleteClick} />
 }

@@ -34,7 +34,7 @@ import {
 import { useAuth } from '@redwoodjs/auth'
 import { Link, routes } from '@redwoodjs/router'
 
-import { ThemeSwitcher } from 'src/components/ui/themeSwitch'
+import { ThemeSwitcher } from 'src/components/ui/ThemeSwitcher'
 import { withDelay } from 'src/helper'
 
 type HomeLayoutProps = {

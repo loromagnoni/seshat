@@ -35,20 +35,12 @@ const NewTransactionCategory = () => {
   }
 
   return (
-    <div className="rw-segment">
-      <header className="rw-segment-header">
-        <h2 className="rw-heading rw-heading-secondary">
-          New TransactionCategory
-        </h2>
-      </header>
-      <div className="rw-segment-main">
-        <TransactionCategoryForm
-          onSave={onSave}
-          loading={loading}
-          error={error}
-        />
-      </div>
-    </div>
+    <TransactionCategoryForm
+      onSave={onSave}
+      loading={loading}
+      error={error}
+      title={'Create category'}
+    />
   )
 }
 
